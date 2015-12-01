@@ -1,10 +1,7 @@
 name := "objektwerks.scalafx"
-
 version := "1.0"
-
 scalaVersion := "2.11.7"
 ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
-
 libraryDependencies ++= {
   val json4sVersion = "3.2.11"
   Seq(
@@ -17,9 +14,7 @@ libraryDependencies ++= {
     "org.scalatest" % "scalatest_2.11" % "2.2.5" % "test"
   )
 }
-
 unmanagedJars in Compile += Attributed.blank(file(System.getenv("JAVA_HOME") + "/jre/lib/ext/jfxrt.jar"))
-
 scalacOptions ++= Seq(
   "-language:postfixOps",
   "-language:implicitConversions",
@@ -31,9 +26,6 @@ scalacOptions ++= Seq(
   "-Xlint",
   "-Xfatal-warnings"
 )
-
 fork in test := true
-
 javaOptions += "-server -Xss1m -Xmx2g"
-
 logLevel := Level.Info
