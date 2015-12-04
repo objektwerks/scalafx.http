@@ -61,6 +61,7 @@ object RestApp extends JFXApp {
       val task = new JokeTask
       jokeText.text <== task.value
       indicator.visible <== task.running
+      this.disable <== task.running
       ec.execute(task)
     }
   }
