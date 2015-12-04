@@ -18,7 +18,7 @@ import scalafx.scene.Scene
 import scalafx.scene.control._
 import scalafx.scene.layout.VBox
 
-object JokeTask extends Task(new jfxc.Task[String] {
+class JokeTask extends Task(new jfxc.Task[String] {
   override def call(): String = {
     implicit val ec = ExecutionContext.global
     val ws = NingWSClient()
@@ -32,7 +32,6 @@ object JokeTask extends Task(new jfxc.Task[String] {
   }
 
   private def parseJson(json: String): String = {
-    println(s"json: $json")
     implicit lazy val formats = DefaultFormats
     val ast = parse(json)
     (ast \ "value" \ "joke").extract[String]
@@ -48,19 +47,22 @@ object RestApp extends JFXApp {
 
   val jokeText = new TextArea {
     wrapText = true
-    text <== JokeTask.value
   }
 
   val indicator = new ProgressIndicator {
     prefWidth = 50
     progress = -1.0
-    visible <== JokeTask.running
+    visible = false
   }
 
   val jokeButton = new Button {
     text = "New Joke"
-    disable <== JokeTask.running
-    onAction = (e: ActionEvent) => { ec.execute(JokeTask) }
+    onAction = (e: ActionEvent) => {
+      val task = new JokeTask
+      jokeText.text <== task.value
+      indicator.visible <== task.running
+      ec.execute(task)
+    }
   }
 
   val jokePane = new VBox {
