@@ -4,8 +4,11 @@ import javafx.{concurrent => jfxc}
 
 import org.json4s.DefaultFormats
 import org.json4s.jackson.JsonMethods._
+import play.api.libs.ws.ning.NingWSClient
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{Await, ExecutionContext}
+import scala.concurrent.duration._
+import scala.util.{Failure, Success}
 import scalafx.Includes._
 import scalafx.application.JFXApp
 import scalafx.concurrent.Task
@@ -15,23 +18,24 @@ import scalafx.scene.Scene
 import scalafx.scene.control._
 import scalafx.scene.layout.VBox
 
-class AsyncRest {
-  private implicit val ec = ExecutionContext.global
-  private implicit lazy val formats = DefaultFormats
-
-  def joke: String = {
-    "" // TODO: Implement Play-WS API call.
+object JokeTask extends Task(new jfxc.Task[String] {
+  override def call(): String = {
+    implicit val ec = ExecutionContext.global
+    val ws = NingWSClient()
+    val request = ws.url("http://api.icndb.com/jokes/random/")
+    val response = request.get()
+    val result = Await.ready(response, Duration.Inf).value.get
+    result match {
+      case Success(content) => parseJson(content.body)
+      case Failure(failure) => s"The joke is on you: ${failure.getMessage}"
+    }
   }
 
   private def parseJson(json: String): String = {
+    println(s"json: $json")
+    implicit lazy val formats = DefaultFormats
     val ast = parse(json)
     (ast \ "value" \ "joke").extract[String]
-  }
-}
-
-object JokeTask extends Task(new jfxc.Task[String] {
-  override def call(): String = {
-    "" // TODO: Implement Play-WS API call.
   }
 })
 
