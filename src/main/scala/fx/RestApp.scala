@@ -14,7 +14,7 @@ import scalafx.scene.layout.VBox
 
 object JokeTask extends Task(new jfxc.Task[String] {
   override def call(): String = {
-    new AsyncRest().joke // AsyncRest fails on second request! It's a net.databinder.dispatch mystery.:)
+    "" // TODO: Implement Play-WS API call.
   }
 })
 

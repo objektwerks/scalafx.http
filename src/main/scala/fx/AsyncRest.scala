@@ -1,25 +1,16 @@
 package fx
 
-import dispatch._
 import org.json4s.DefaultFormats
 import org.json4s.jackson.JsonMethods._
 
-import scala.concurrent.duration._
-import scala.concurrent.{Await, ExecutionContext}
+import scala.concurrent.ExecutionContext
 
 class AsyncRest {
   private implicit val ec = ExecutionContext.global
   private implicit lazy val formats = DefaultFormats
 
   def joke: String = {
-    Http.configure(_.setConnectTimeout(10000))
-    val service = url("http://api.icndb.com/jokes/random/")
-    val request = Http(service.GET)
-    val response = Await.result(request, 10 seconds)
-    response.getStatusCode match {
-      case 200 => parseJson(response.getResponseBody)
-      case _ => s"${response.getStatusCode} : ${response.getStatusText}"
-    }
+    "" // TODO: Implement Play-WS API call.
   }
 
   private def parseJson(json: String): String = {
