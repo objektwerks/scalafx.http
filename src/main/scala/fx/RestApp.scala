@@ -2,6 +2,9 @@ package fx
 
 import javafx.{concurrent => jfxc}
 
+import org.json4s.DefaultFormats
+import org.json4s.jackson.JsonMethods._
+
 import scala.concurrent.ExecutionContext
 import scalafx.Includes._
 import scalafx.application.JFXApp
@@ -11,6 +14,20 @@ import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.control._
 import scalafx.scene.layout.VBox
+
+class AsyncRest {
+  private implicit val ec = ExecutionContext.global
+  private implicit lazy val formats = DefaultFormats
+
+  def joke: String = {
+    "" // TODO: Implement Play-WS API call.
+  }
+
+  private def parseJson(json: String): String = {
+    val ast = parse(json)
+    (ast \ "value" \ "joke").extract[String]
+  }
+}
 
 object JokeTask extends Task(new jfxc.Task[String] {
   override def call(): String = {
