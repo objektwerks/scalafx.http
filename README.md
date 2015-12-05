@@ -8,20 +8,18 @@ Rest App
 not invoke this service, Chuck does. The main web site can be found at: http://www.icndb.com/the-jokes-2/
 
 >The JSON responses:
-```
-URL: http://api.icndb.com/jokes/random
-JSON:
 
+* URL: http://api.icndb.com/jokes/random
+```
 { "type": "success",
   "value": { "id": 111,
              "joke": "Chuck Norris has a deep and abiding respect for human life... unless it gets in his way.",
              "categories": []
            }
  }
-
-URL: http://api.icndb.com/jokes/random/3    // Asks for 3 random jokes.
-JSON:
-
+```
+* URL: http://api.icndb.com/jokes/random/3
+```
 {
   "type": "success",
   "value": [
