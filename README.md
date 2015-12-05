@@ -28,7 +28,8 @@ not call this service, Chuck does. The main web site can be found at: http://www
     },
     {
       "id": 241,
-      "joke": "Chuck Norris puts his pants on one leg at a time, just like the rest of us. The only difference is, then he kills people.",
+      "joke": "Chuck Norris puts his pants on one leg at a time, just like the rest of us. The only difference is,
+               then he kills people.",
       "categories": []
     },
     {
