@@ -11,7 +11,8 @@ not call this service, Chuck does. The main web site can be found at: http://www
 ```
 { "type": "success",
   "value": { "id": 111,
-             "joke": "Chuck Norris has a deep and abiding respect for human life... unless it gets in his way.",
+             "joke": "Chuck Norris has a deep and abiding respect for human life... unless it gets
+                      in his way.",
              "categories": []
            }
  }
@@ -28,8 +29,8 @@ not call this service, Chuck does. The main web site can be found at: http://www
     },
     {
       "id": 241,
-      "joke": "Chuck Norris puts his pants on one leg at a time, just like the rest of us. The only difference is,
-               then he kills people.",
+      "joke": "Chuck Norris puts his pants on one leg at a time, just like the rest of us. The only
+               difference is, then he kills people.",
       "categories": []
     },
     {
