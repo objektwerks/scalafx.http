@@ -41,3 +41,11 @@ not call this service, Chuck does. The main web site can be found at: http://www
   ]
 }                                
 ```
+
+Visual Spark
+------------
+>See this Github project for details: https://github.com/objektwerks/visual.spark
+
+Beer Brewing Simulator
+----------------------
+>See this Github project for details: https://github.com/objektwerks/akka
