@@ -7,8 +7,6 @@ Rest App
 >The RestApp uses the Chuck Norris ( http://api.icndb.com/jokes/random/ ) rest service. Of course, the app does
 not invoke this service, Chuck does. The main web site can be found at: http://www.icndb.com/the-jokes-2/
 
->The JSON responses:
-
 * URL: http://api.icndb.com/jokes/random
 ```
 { "type": "success",
