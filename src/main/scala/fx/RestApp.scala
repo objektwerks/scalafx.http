@@ -11,12 +11,14 @@ import scala.concurrent.{Await, ExecutionContext}
 import scala.util.{Failure, Success}
 import scalafx.Includes._
 import scalafx.application.JFXApp
+import scalafx.beans.property.StringProperty
 import scalafx.concurrent.Task
 import scalafx.event.ActionEvent
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.control._
 import scalafx.scene.layout.VBox
+import scalafx.scene.web.WebView
 
 class JokeTask extends Task(new jfxc.Task[String] {
   override def call(): String = {
@@ -26,8 +28,8 @@ class JokeTask extends Task(new jfxc.Task[String] {
     val response = request.get()
     val result = Await.ready(response, Duration.Inf).value.get
     result match {
-      case Success(content) => parseJson(content.body)
-      case Failure(failure) => s"The joke is on you: ${failure.getMessage}"
+      case Success(content) => s"<p>${parseJson(content.body)}</p>"
+      case Failure(failure) => s"<p>The joke is on you: ${failure.getMessage}</p>"
     }
   }
 
@@ -41,9 +43,12 @@ class JokeTask extends Task(new jfxc.Task[String] {
 object RestApp extends JFXApp {
   private val ec = ExecutionContext.global
 
-  val jokeText = new TextArea {
-    wrapText = true
-  }
+  val webView: WebView = new WebView()
+
+  val jokeHtmlProperty = new StringProperty()
+  jokeHtmlProperty.onChange({
+    webView.engine.loadContent(jokeHtmlProperty.value)
+  })
 
   val jokeIndicator = new ProgressIndicator {
     prefWidth = 50
@@ -58,7 +63,7 @@ object RestApp extends JFXApp {
     text = "Joke"
     onAction = (e: ActionEvent) => {
       val task = new JokeTask
-      jokeText.text <== task.value
+      jokeHtmlProperty <== task.value
       jokeIndicator.visible <== task.running
       this.disable <== task.running
       ec.execute(task)
@@ -76,7 +81,7 @@ object RestApp extends JFXApp {
     maxHeight = 200
     spacing = 6
     padding = Insets(6)
-    children = List(toolbar, jokeText)
+    children = List(toolbar, webView)
   }
 
   stage = new JFXApp.PrimaryStage {
