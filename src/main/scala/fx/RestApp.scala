@@ -6,8 +6,8 @@ import org.json4s.DefaultFormats
 import org.json4s.jackson.JsonMethods._
 import play.api.libs.ws.ning.NingWSClient
 
-import scala.concurrent.{Await, ExecutionContext}
 import scala.concurrent.duration._
+import scala.concurrent.{Await, ExecutionContext}
 import scala.util.{Failure, Success}
 import scalafx.Includes._
 import scalafx.application.JFXApp
@@ -42,6 +42,7 @@ object RestApp extends JFXApp {
   private val ec = ExecutionContext.global
 
   val jokeLabel = new Label {
+    id = "joke-label"
     text = "Joke:"
   }
 
@@ -67,8 +68,7 @@ object RestApp extends JFXApp {
   }
 
   val jokePane = new VBox {
-    maxWidth = 400
-    maxHeight = 400
+    id = "joke-vbox"
     spacing = 6
     padding = Insets(6)
     children = List(jokeLabel, jokeText)
@@ -80,7 +80,7 @@ object RestApp extends JFXApp {
 
   val appPane = new VBox {
     maxWidth = 400
-    maxHeight = 400
+    maxHeight = 200
     spacing = 6
     padding = Insets(6)
     children = List(toolbar, jokePane)
@@ -89,6 +89,7 @@ object RestApp extends JFXApp {
   stage = new JFXApp.PrimaryStage {
     title.value = "Chuck Norris Jokes"
     scene = new Scene {
+      stylesheets.add("rest.app.css")
       root = appPane
     }
   }
