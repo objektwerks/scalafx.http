@@ -45,9 +45,9 @@ object RestApp extends JFXApp {
 
   val webView: WebView = new WebView()
 
-  val jokeHtmlProperty = new StringProperty()
-  jokeHtmlProperty.onChange({
-    webView.engine.loadContent(jokeHtmlProperty.value)
+  val jokeProperty = new StringProperty()
+  jokeProperty.onChange({
+    webView.engine.loadContent(jokeProperty.value)
   })
 
   val jokeIndicator = new ProgressIndicator {
@@ -63,7 +63,7 @@ object RestApp extends JFXApp {
     text = "Joke"
     onAction = (e: ActionEvent) => {
       val task = new JokeTask
-      jokeHtmlProperty <== task.value
+      jokeProperty <== task.value
       jokeIndicator.visible <== task.running
       this.disable <== task.running
       ec.execute(task)
@@ -75,20 +75,26 @@ object RestApp extends JFXApp {
     content = List(jokeButton, new Separator(), jokeIndicator)
   }
 
-  val pane = new VBox {
-    id = "pane"
+  val webViewPane = new VBox {
+    id = "web-view-pane"
+    spacing = 3
+    padding = Insets(3)
+    children = List(webView)
+  }
+
+  val contentPane = new VBox {
     maxWidth = 400
     maxHeight = 200
     spacing = 6
     padding = Insets(6)
-    children = List(toolbar, webView)
+    children = List(toolbar, webViewPane)
   }
 
   stage = new JFXApp.PrimaryStage {
     title.value = "Chuck Norris Jokes"
     scene = new Scene {
       stylesheets.add("rest.app.css")
-      root = pane
+      root = contentPane
     }
   }
 }
