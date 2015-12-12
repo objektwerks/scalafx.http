@@ -41,56 +41,49 @@ class JokeTask extends Task(new jfxc.Task[String] {
 object RestApp extends JFXApp {
   private val ec = ExecutionContext.global
 
-  val jokeLabel = new Label {
-    id = "joke-label"
-    text = "Joke:"
-  }
-
   val jokeText = new TextArea {
     wrapText = true
   }
 
-  val indicator = new ProgressIndicator {
+  val jokeIndicator = new ProgressIndicator {
     prefWidth = 50
+    prefHeight = 25
     progress = -1.0
     visible = false
   }
 
   val jokeButton = new Button {
-    text = "New Joke"
+    prefWidth = 50
+    prefHeight = 25
+    text = "Joke"
     onAction = (e: ActionEvent) => {
       val task = new JokeTask
       jokeText.text <== task.value
-      indicator.visible <== task.running
+      jokeIndicator.visible <== task.running
       this.disable <== task.running
       ec.execute(task)
     }
   }
 
-  val jokePane = new VBox {
-    id = "joke-vbox"
-    spacing = 6
-    padding = Insets(6)
-    children = List(jokeLabel, jokeText)
-  }
-
   val toolbar = new ToolBar {
-    content = List(jokeButton, new Separator(), indicator)
+    prefHeight = 30
+    content = List(jokeButton, new Separator(), jokeIndicator)
   }
 
-  val appPane = new VBox {
+  val pane = new VBox {
+    id = "pane"
     maxWidth = 400
     maxHeight = 200
     spacing = 6
     padding = Insets(6)
-    children = List(toolbar, jokePane)
+    children = List(toolbar, jokeText)
   }
 
   stage = new JFXApp.PrimaryStage {
     title.value = "Chuck Norris Jokes"
     scene = new Scene {
       stylesheets.add("rest.app.css")
-      root = appPane
+      root = pane
     }
   }
 }

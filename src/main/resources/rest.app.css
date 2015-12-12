@@ -1,6 +1,3 @@
-#joke-label {
-    -fx-font-weight: bold;
-}
-#joke-vbox {
+#pane {
     -fx-border-color: lightgray;
 }
