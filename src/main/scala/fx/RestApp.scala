@@ -51,15 +51,15 @@ object RestApp extends JFXApp {
   })
 
   val jokeIndicator = new ProgressIndicator {
-    prefWidth = 50
-    prefHeight = 25
+    prefWidth = 60
+    prefHeight = 30
     progress = -1.0
     visible = false
   }
 
   val jokeButton = new Button {
-    prefWidth = 50
-    prefHeight = 25
+    prefWidth = 60
+    prefHeight = 30
     text = "Joke"
     onAction = (e: ActionEvent) => {
       val task = new JokeTask
@@ -71,7 +71,7 @@ object RestApp extends JFXApp {
   }
 
   val toolbar = new ToolBar {
-    prefHeight = 30
+    prefHeight = 40
     content = List(jokeButton, new Separator(), jokeIndicator)
   }
 
