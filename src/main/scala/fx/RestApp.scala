@@ -20,7 +20,7 @@ import scalafx.scene.control._
 import scalafx.scene.layout.VBox
 import scalafx.scene.web.WebView
 
-class JokeTask(ec: ExecutionContext, ws: NingWSClient) extends Task(new jfxc.Task[String] {
+class JokeTask(val ec: ExecutionContext, val ws: NingWSClient) extends Task(new jfxc.Task[String] {
   override def call(): String = {
     val response = Await.ready(ws.url("http://api.icndb.com/jokes/random/").get, 10 seconds).value.get
     response match {
