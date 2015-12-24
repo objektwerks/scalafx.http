@@ -20,12 +20,9 @@ import scalafx.scene.control._
 import scalafx.scene.layout.VBox
 import scalafx.scene.web.WebView
 
-class JokeTask extends Task(new jfxc.Task[String] {
-  implicit private val ec = ExecutionContext.global
-  private val ws = NingWSClient().url("http://api.icndb.com/jokes/random/")
-
+class JokeTask(ec: ExecutionContext, ws: NingWSClient) extends Task(new jfxc.Task[String] {
   override def call(): String = {
-    val response = Await.ready(ws.get, 10 seconds).value.get
+    val response = Await.ready(ws.url("http://api.icndb.com/jokes/random/").get, 10 seconds).value.get
     response match {
       case Success(content) => s"<p>${parseJson(content.body)}</p>"
       case Failure(failure) => s"<p>The joke is on you: ${failure.getMessage}</p>"
@@ -41,6 +38,7 @@ class JokeTask extends Task(new jfxc.Task[String] {
 
 object RestApp extends JFXApp {
   private val ec = ExecutionContext.global
+  private val ws = NingWSClient()
 
   val webView: WebView = new WebView()
 
@@ -61,7 +59,7 @@ object RestApp extends JFXApp {
     prefHeight = 30
     text = "Joke"
     onAction = (e: ActionEvent) => {
-      val task = new JokeTask
+      val task = new JokeTask(ec, ws)
       jokeProperty <== task.value
       jokeIndicator.visible <== task.running
       this.disable <== task.running
