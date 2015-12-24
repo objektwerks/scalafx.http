@@ -21,13 +21,12 @@ import scalafx.scene.layout.VBox
 import scalafx.scene.web.WebView
 
 class JokeTask extends Task(new jfxc.Task[String] {
+  implicit private val ec = ExecutionContext.global
+  private val ws = NingWSClient().url("http://api.icndb.com/jokes/random/")
+
   override def call(): String = {
-    implicit val ec = ExecutionContext.global
-    val ws = NingWSClient()
-    val request = ws.url("http://api.icndb.com/jokes/random/")
-    val response = request.get()
-    val result = Await.ready(response, 10 seconds).value.get
-    result match {
+    val response = Await.ready(ws.get, 10 seconds).value.get
+    response match {
       case Success(content) => s"<p>${parseJson(content.body)}</p>"
       case Failure(failure) => s"<p>The joke is on you: ${failure.getMessage}</p>"
     }
