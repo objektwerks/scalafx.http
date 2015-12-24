@@ -8,7 +8,8 @@ libraryDependencies ++= {
     "org.scalafx" % "scalafx_2.11" % "8.0.60-R9",
     "com.typesafe.play" % "play-ws_2.11" % "2.4.6",
     "org.json4s" % "json4s-jackson_2.11" % json4sVersion,
-    "org.json4s" % "json4s-native_2.11" % json4sVersion
+    "org.json4s" % "json4s-native_2.11" % json4sVersion,
+    "ch.qos.logback" % "logback-classic" % "1.1.3"
   )
 }
 unmanagedJars in Compile += Attributed.blank(file(System.getenv("JAVA_HOME") + "/jre/lib/ext/jfxrt.jar"))
