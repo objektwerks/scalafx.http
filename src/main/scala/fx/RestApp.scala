@@ -26,7 +26,7 @@ class JokeTask extends Task(new jfxc.Task[String] {
     val ws = NingWSClient()
     val request = ws.url("http://api.icndb.com/jokes/random/")
     val response = request.get()
-    val result = Await.ready(response, Duration.Inf).value.get
+    val result = Await.ready(response, 10 seconds).value.get
     result match {
       case Success(content) => s"<p>${parseJson(content.body)}</p>"
       case Failure(failure) => s"<p>The joke is on you: ${failure.getMessage}</p>"
