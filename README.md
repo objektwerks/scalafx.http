@@ -1,5 +1,5 @@
-ScalaFX Prototypes
-==================
+ScalaFX
+-------
 >ScalaFX prototypes.
 
 Rest App
