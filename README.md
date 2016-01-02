@@ -52,4 +52,4 @@ Beer Brewing Simulator
 
 Stats App
 ---------
->See this Github project for details: https://github.com/objektwerks/scala.stats.ml
+>See this Github project for details: https://github.com/objektwerks/scala.stats
