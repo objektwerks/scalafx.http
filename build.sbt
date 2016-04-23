@@ -5,7 +5,7 @@ ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 libraryDependencies ++= {
   val json4sVersion = "3.3.0"
   Seq(
-    "org.scalafx" % "scalafx_2.11" % "8.0.60-R9",
+    "org.scalafx" % "scalafx_2.11" % "8.0.92-R10",
     "com.typesafe.play" % "play-ws_2.11" % "2.4.6",
     "org.json4s" % "json4s-jackson_2.11" % json4sVersion,
     "org.json4s" % "json4s-native_2.11" % json4sVersion,
