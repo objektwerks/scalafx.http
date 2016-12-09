@@ -1,28 +1,33 @@
-name := "objektwerks.scalafx"
+name := "scalafx"
+organization := "objektwerks"
 version := "1.0"
 scalaVersion := "2.11.8"
 ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 libraryDependencies ++= {
-  val json4sVersion = "3.3.0"
+  val json4sVersion = "3.5.0"
   Seq(
-    "org.scalafx" % "scalafx_2.11" % "8.0.92-R10",
-    "com.typesafe.play" % "play-ws_2.11" % "2.4.6",
+    "org.scalafx" % "scalafx_2.11" % "8.0.102-R11",
+    "com.typesafe.play" % "play-ws_2.11" % "2.5.10",
     "org.json4s" % "json4s-jackson_2.11" % json4sVersion,
     "org.json4s" % "json4s-native_2.11" % json4sVersion,
-    "ch.qos.logback" % "logback-classic" % "1.1.3"
+    "ch.qos.logback" % "logback-classic" % "1.1.7"
   )
 }
 unmanagedJars in Compile += Attributed.blank(file(System.getenv("JAVA_HOME") + "/jre/lib/ext/jfxrt.jar"))
 scalacOptions ++= Seq(
   "-language:postfixOps",
-  "-language:implicitConversions",
   "-language:reflectiveCalls",
+  "-language:implicitConversions",
   "-language:higherKinds",
   "-feature",
+  "-Ywarn-unused-import",
+  "-Ywarn-unused",
+  "-Ywarn-dead-code",
   "-unchecked",
   "-deprecation",
-  "-Xlint",
-  "-Xfatal-warnings"
+  "-Xfatal-warnings",
+  "-Xlint:missing-interpolator",
+  "-Xlint"
 )
 fork in test := true
 javaOptions += "-server -Xss1m -Xmx2g"
