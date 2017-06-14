@@ -2,31 +2,27 @@ package fx
 
 import javafx.{concurrent => jfxc}
 
+import dispatch.Defaults._
+import dispatch.{Http, url}
 import org.json4s.DefaultFormats
 import org.json4s.jackson.JsonMethods._
-import play.api.libs.ws.ning.NingWSClient
 
-import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext}
-import scala.util.{Failure, Success}
-import scalafx.Includes._
+import scala.concurrent.duration._
 import scalafx.application.JFXApp
 import scalafx.beans.property.StringProperty
 import scalafx.concurrent.Task
-import scalafx.event.ActionEvent
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.control._
 import scalafx.scene.layout.VBox
 import scalafx.scene.web.WebView
 
-class JokeTask(val ec: ExecutionContext, val ws: NingWSClient) extends Task(new jfxc.Task[String] {
+class JokeTask(val ec: ExecutionContext) extends Task(new jfxc.Task[String] {
   override def call(): String = {
-    val response = Await.ready(ws.url("http://api.icndb.com/jokes/random/").get, 10 seconds).value.get
-    response match {
-      case Success(content) => s"<p>${parseJson(content.body)}</p>"
-      case Failure(failure) => s"<p>The joke is on you: ${failure.getMessage}</p>"
-    }
+    val http = Http.default
+    val ws = url("http://api.icndb.com/jokes/random/").OK { response => s"<p>${parseJson(response.getResponseBody)}</p>" }
+    Await.result(http(ws), 10 seconds)
   }
 
   private def parseJson(json: String): String = {
@@ -37,9 +33,7 @@ class JokeTask(val ec: ExecutionContext, val ws: NingWSClient) extends Task(new 
 })
 
 object RestApp extends JFXApp {
-  private val ec = ExecutionContext.global
-  private val ws = NingWSClient()
-
+  implicit val ec = ExecutionContext.Implicits.global
   val webView: WebView = new WebView()
 
   val jokeProperty = new StringProperty()
@@ -58,8 +52,8 @@ object RestApp extends JFXApp {
     prefWidth = 60
     prefHeight = 30
     text = "Joke"
-    onAction = (e: ActionEvent) => {
-      val task = new JokeTask(ec, ws)
+    onAction = _ => {
+      val task = new JokeTask(ec)
       jokeProperty <== task.value
       jokeIndicator.visible <== task.running
       this.disable <== task.running
