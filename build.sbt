@@ -1,8 +1,7 @@
 name := "scalafx"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "2.12.2"
-ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
+scalaVersion := "2.12.3"
 libraryDependencies ++= {
   val json4sVersion = "3.5.2"
   Seq(
