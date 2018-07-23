@@ -1,7 +1,7 @@
 name := "scalafx"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "2.12.4"
+scalaVersion := "2.12.6"
 libraryDependencies ++= {
   val json4sVersion = "3.5.3"
   Seq(
