@@ -1,14 +1,14 @@
 name := "scalafx"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.9"
 libraryDependencies ++= {
   val json4sVersion = "3.5.3"
   Seq(
-    "org.scalafx" % "scalafx_2.12" % "8.0.144-R12",
-    "net.databinder.dispatch" % "dispatch-core_2.12" % "0.13.2",
-    "org.json4s" % "json4s-jackson_2.12" % json4sVersion,
-    "org.json4s" % "json4s-native_2.12" % json4sVersion,
+    "org.scalafx" %% "scalafx" % "8.0.144-R12",
+    "net.databinder.dispatch" %% "dispatch-core" % "0.13.2",
+    "org.json4s" %% "json4s-jackson" % json4sVersion,
+    "org.json4s" %% "json4s-native" % json4sVersion,
     "ch.qos.logback" % "logback-classic" % "1.2.3"
   )
 }
@@ -28,4 +28,3 @@ scalacOptions ++= Seq(
   "-Xlint:missing-interpolator",
   "-Xlint"
 )
-fork in test := true
