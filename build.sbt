@@ -1,12 +1,12 @@
 name := "scalafx"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "2.12.9"
+scalaVersion := "2.12.10"
 libraryDependencies ++= {
-  val json4sVersion = "3.5.3"
+  val json4sVersion = "3.6.7"
   Seq(
-    "org.scalafx" %% "scalafx" % "8.0.144-R12",
-    "net.databinder.dispatch" %% "dispatch-core" % "0.13.2",
+    "org.scalafx" %% "scalafx" % "12.0.2-R18",
+    "net.databinder.dispatch" %% "dispatch-core" % "0.13.4",
     "org.json4s" %% "json4s-jackson" % json4sVersion,
     "org.json4s" %% "json4s-native" % json4sVersion,
     "ch.qos.logback" % "logback-classic" % "1.2.3"
