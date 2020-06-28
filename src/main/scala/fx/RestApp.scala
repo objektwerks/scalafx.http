@@ -17,6 +17,7 @@ import scalafx.scene.Scene
 import scalafx.scene.control._
 import scalafx.scene.layout.VBox
 import scalafx.scene.web.WebView
+import scala.language.postfixOps
 
 class JokeTask(val ec: ExecutionContext) extends Task(new jfxc.Task[String] {
   override def call(): String = {

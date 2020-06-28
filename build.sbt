@@ -1,30 +1,28 @@
+enablePlugins(JlinkPlugin)
+
 name := "scalafx"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "2.12.10"
+scalaVersion := "2.12.11"
 libraryDependencies ++= {
-  val json4sVersion = "3.6.7"
+  val json4sVersion = "3.6.9"
   Seq(
-    "org.scalafx" %% "scalafx" % "12.0.2-R18",
+    "org.scalafx" %% "scalafx" % "14-R19",
     "net.databinder.dispatch" %% "dispatch-core" % "0.13.4",
     "org.json4s" %% "json4s-jackson" % json4sVersion,
     "org.json4s" %% "json4s-native" % json4sVersion,
     "ch.qos.logback" % "logback-classic" % "1.2.3"
   )
 }
-unmanagedJars in Compile += Attributed.blank(file(System.getenv("JAVA_HOME") + "/jre/lib/ext/jfxrt.jar"))
-scalacOptions ++= Seq(
-  "-language:postfixOps",
-  "-language:reflectiveCalls",
-  "-language:implicitConversions",
-  "-language:higherKinds",
-  "-feature",
-  "-Ywarn-unused-import",
-  "-Ywarn-unused",
-  "-Ywarn-dead-code",
-  "-unchecked",
-  "-deprecation",
-  "-Xfatal-warnings",
-  "-Xlint:missing-interpolator",
-  "-Xlint"
-)
+lazy val osName = System.getProperty("os.name") match {
+  case n if n.startsWith("Linux")   => "linux"
+  case n if n.startsWith("Mac")     => "mac"
+  case n if n.startsWith("Windows") => "win"
+  case _ => throw new Exception("Unknown platform!")
+}
+lazy val javaFXModules = Seq("base", "controls", "fxml", "graphics", "media", "swing", "web")
+libraryDependencies ++= javaFXModules.map( m => "org.openjfx" % s"javafx-$m" % "14.0.1" classifier osName )
+jlinkModules := {
+  jlinkModules.value :+ "jdk.unsupported"
+}
+jlinkIgnoreMissingDependency := JlinkIgnore.everything
