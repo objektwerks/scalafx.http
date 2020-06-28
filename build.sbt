@@ -1,6 +1,6 @@
 enablePlugins(JlinkPlugin)
 
-name := "scala.rest"
+name := "scalafx.rest"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
 scalaVersion := "2.12.11"
