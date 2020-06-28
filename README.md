@@ -1,9 +1,9 @@
-Scala Rest
-----------
->Scala Rest app.
+ScalaFX Rest
+------------
+>ScalaFx Rest app.
 
-App
----
+Design
+------
 >The RestApp uses the Chuck Norris ( http://api.icndb.com/jokes/random/ ) rest service. Of course, the app does
 not call this service, Chuck does. The main web site can be found at: http://www.icndb.com/the-jokes-2/
 
@@ -52,4 +52,4 @@ Beer Brewing Simulator
 
 Stats App
 ---------
->See this Github project for details: https://github.com/objektwerks/scala.stats
+>See this Github project for details: https://github.com/objektwerks/scalafx.stats
