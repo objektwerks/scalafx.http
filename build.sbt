@@ -3,7 +3,7 @@ enablePlugins(JlinkPlugin)
 name := "scalafx.rest"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "2.12.11"
+scalaVersion := "2.12.12"
 libraryDependencies ++= {
   val json4sVersion = "3.6.9"
   Seq(
