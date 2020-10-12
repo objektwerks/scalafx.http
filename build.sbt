@@ -5,7 +5,7 @@ organization := "objektwerks"
 version := "0.1-SNAPSHOT"
 scalaVersion := "2.12.12"
 libraryDependencies ++= {
-  val json4sVersion = "3.6.9"
+  val json4sVersion = "3.6.10"
   Seq(
     "org.scalafx" %% "scalafx" % "14-R19",
     "net.databinder.dispatch" %% "dispatch-core" % "0.13.4",
