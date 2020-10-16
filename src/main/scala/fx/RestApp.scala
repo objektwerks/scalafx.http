@@ -4,11 +4,14 @@ import javafx.{concurrent => jfxc}
 
 import dispatch.Defaults._
 import dispatch.{Http, url}
+
 import org.json4s.DefaultFormats
 import org.json4s.jackson.JsonMethods._
 
 import scala.concurrent.{Await, ExecutionContext}
 import scala.concurrent.duration._
+import scala.language.postfixOps
+
 import scalafx.application.JFXApp
 import scalafx.beans.property.StringProperty
 import scalafx.concurrent.Task
@@ -17,7 +20,6 @@ import scalafx.scene.Scene
 import scalafx.scene.control._
 import scalafx.scene.layout.VBox
 import scalafx.scene.web.WebView
-import scala.language.postfixOps
 
 class JokeTask(val ec: ExecutionContext) extends Task(new jfxc.Task[String] {
   override def call(): String = {
