@@ -28,6 +28,8 @@ import scalafx.scene.layout.VBox
 import scalafx.scene.web.WebView
 
 class JokeTask(implicit val system: ActorSystem, val dispatcher: ExecutionContext) extends Task(new jfxc.Task[String] {
+  implicit lazy val formats = DefaultFormats
+  
   override def call(): String = {
     Await.result( getJoke, 10 seconds ) // Using Task and Future together has its limitations.
   }
@@ -43,7 +45,6 @@ class JokeTask(implicit val system: ActorSystem, val dispatcher: ExecutionContex
   }
 
   def parseJson(json: String): String = {
-    implicit lazy val formats = DefaultFormats
     val ast = parse(json)
     (ast \ "value" \ "joke").extract[String]
   }
