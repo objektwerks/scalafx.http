@@ -1,14 +1,20 @@
 package fx
 
-import javafx.{concurrent => jfxc}
+import akka.actor.ActorSystem
+import akka.http.scaladsl.unmarshalling.Unmarshal
 
-import dispatch.Defaults._
-import dispatch.{Http, url}
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.model.HttpRequest
+
+import com.typesafe.config.ConfigFactory
+
+import javafx.{concurrent => jfxc}
 
 import org.json4s.DefaultFormats
 import org.json4s.jackson.JsonMethods._
 
-import scala.concurrent.{Await, ExecutionContext}
+import scala.concurrent.ExecutionContext
+import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
@@ -21,14 +27,19 @@ import scalafx.scene.control._
 import scalafx.scene.layout.VBox
 import scalafx.scene.web.WebView
 
-class JokeTask(val ec: ExecutionContext) extends Task(new jfxc.Task[String] {
+class JokeTask(implicit val system: ActorSystem, val dispatcher: ExecutionContext) extends Task(new jfxc.Task[String] {
   override def call(): String = {
-    val http = Http.default
-    val ws = url("http://api.icndb.com/jokes/random/").OK { response => s"<p>${parseJson(response.getResponseBody)}</p>" }
-    Await.result(http(ws), 10 seconds)
+    Await.result( getJoke, 10 seconds )
   }
 
-  private def parseJson(json: String): String = {
+  def getJoke: Future[String] = {
+    val client = Http()
+    client.singleRequest( HttpRequest(uri = "http://api.icndb.com/jokes/random/") ).flatMap { response =>
+      Unmarshal(response).to[String].map { json => s"<p>${parseJson(json)}</p>" }
+    }
+  }
+
+  def parseJson(json: String): String = {
     implicit lazy val formats = DefaultFormats
     val ast = parse(json)
     (ast \ "value" \ "joke").extract[String]
@@ -36,7 +47,10 @@ class JokeTask(val ec: ExecutionContext) extends Task(new jfxc.Task[String] {
 })
 
 object JokeApp extends JFXApp {
-  implicit val ec = ExecutionContext.Implicits.global
+  val conf = ConfigFactory.load("app.conf")
+  implicit val system = ActorSystem.create("joke", conf)
+  implicit val dispatcher = system.dispatcher
+
   val webView: WebView = new WebView()
 
   val jokeProperty = new StringProperty()
@@ -56,11 +70,11 @@ object JokeApp extends JFXApp {
     prefHeight = 30
     text = "Joke"
     onAction = _ => {
-      val task = new JokeTask(ec)
+      val task = new JokeTask()
       jokeProperty <== task.value
       jokeIndicator.visible <== task.running
       this.disable <== task.running
-      ec.execute(task)
+      dispatcher.execute(task)
     }
   }
 
