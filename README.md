@@ -1,10 +1,14 @@
-ScalaFX Rest
-------------
->ScalaFx Rest app.
+ScalaFX Akka-Http App
+---------------------
+>ScalaFx Akka-Http app that queries and displays Chuck Norris jokes.
+
+Run
+---
+1. sbt clean compile run
 
 Design
 ------
->The RestApp uses the Chuck Norris ( http://api.icndb.com/jokes/random/ ) rest service. Of course, the app does
+>The app uses the Chuck Norris ( http://api.icndb.com/jokes/random/ ) rest service. Of course, the app does
 not call this service, Chuck does. The main web site can be found at: http://www.icndb.com/the-jokes-2/
 
 * http://api.icndb.com/jokes/random
@@ -41,15 +45,3 @@ not call this service, Chuck does. The main web site can be found at: http://www
   ]
 }                                
 ```
-
-Visual Spark
-------------
->See this Github project for details: https://github.com/objektwerks/visual.spark
-
-Beer Brewing Simulator
-----------------------
->See this Github project for details: https://github.com/objektwerks/akka
-
-Stats App
----------
->See this Github project for details: https://github.com/objektwerks/scalafx.stats

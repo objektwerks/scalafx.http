@@ -35,7 +35,7 @@ class JokeTask(val ec: ExecutionContext) extends Task(new jfxc.Task[String] {
   }
 })
 
-object RestApp extends JFXApp {
+object JokeApp extends JFXApp {
   implicit val ec = ExecutionContext.Implicits.global
   val webView: WebView = new WebView()
 
@@ -87,7 +87,7 @@ object RestApp extends JFXApp {
   stage = new JFXApp.PrimaryStage {
     title.value = "Chuck Norris Jokes"
     scene = new Scene {
-      stylesheets.add("rest.app.css")
+      stylesheets.add("app.css")
       root = contentPane
     }
   }
