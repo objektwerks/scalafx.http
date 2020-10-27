@@ -29,13 +29,16 @@ import scalafx.scene.web.WebView
 
 class JokeTask(implicit val system: ActorSystem, val dispatcher: ExecutionContext) extends Task(new jfxc.Task[String] {
   override def call(): String = {
-    Await.result( getJoke, 10 seconds )
+    Await.result( getJoke, 10 seconds ) // Using Task and Future together has its limitations.
   }
 
   def getJoke: Future[String] = {
     val client = Http()
     client.singleRequest( HttpRequest(uri = "http://api.icndb.com/jokes/random/") ).flatMap { response =>
-      Unmarshal(response).to[String].map { json => s"<p>${parseJson(json)}</p>" }
+      Unmarshal(response)
+        .to[String]
+        .map { json => s"<p>${parseJson(json)}</p>" }
+        .recover { case error => s"<p>${error.getMessage}</p>" }
     }
   }
 
