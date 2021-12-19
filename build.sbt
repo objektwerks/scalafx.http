@@ -14,6 +14,6 @@ libraryDependencies ++= {
     "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
     "org.json4s" %% "json4s-jackson" % json4sVersion,
     "org.json4s" %% "json4s-native" % json4sVersion,
-    "ch.qos.logback" % "logback-classic" % "1.2.7"
+    "ch.qos.logback" % "logback-classic" % "1.2.9"
   )
 }
