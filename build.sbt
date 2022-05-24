@@ -7,7 +7,7 @@ libraryDependencies ++= {
   val akkaHttpVersion = "10.2.9"
   val json4sVersion = "4.0.5"
   Seq(
-    "org.scalafx" %% "scalafx" % "17.0.1-R26",
+    "org.scalafx" %% "scalafx" % "18.0.1-R27",
     "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
     "com.typesafe.akka" %% "akka-actor" % akkaVersion,
     "com.typesafe.akka" %% "akka-stream" % akkaVersion,
