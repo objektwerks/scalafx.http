@@ -4,7 +4,7 @@ version := "0.1-SNAPSHOT"
 scalaVersion := "2.13.10"
 libraryDependencies ++= {
   val akkaVersion = "2.7.0"
-  val akkaHttpVersion = "10.2.9"
+  val akkaHttpVersion = "10.4.0"
   val json4sVersion = "4.0.6"
   Seq(
     "org.scalafx" %% "scalafx" % "19.0.0-R30",
