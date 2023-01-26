@@ -1,6 +1,6 @@
-ScalaFX Akka-Http App
----------------------
->ScalaFx Akka-Http app that queries and displays Chuck Norris jokes.
+ScalaFX Http App
+----------------
+>ScalaFx Http app that queries and displays Chuck Norris jokes.
 
 Run
 ---
