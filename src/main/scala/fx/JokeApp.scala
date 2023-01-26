@@ -9,14 +9,15 @@ import com.typesafe.config.ConfigFactory
 
 import javafx.{concurrent => jfxc}
 
-import org.json4s.DefaultFormats
-import org.json4s.jackson.JsonMethods._
+import org.json4s.*
+import org.json4s.jackson.JsonMethods.*
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
+import scalafx.Includes.*
 import scalafx.application.JFXApp3
 import scalafx.beans.property.StringProperty
 import scalafx.concurrent.Task
@@ -26,8 +27,8 @@ import scalafx.scene.control.*
 import scalafx.scene.layout.VBox
 import scalafx.scene.web.WebView
 
-class JokeTask(implicit val system: ActorSystem, val dispatcher: ExecutionContext) extends Task(new jfxc.Task[String] {
-  implicit lazy val formats = DefaultFormats
+class JokeTask(using system: ActorSystem, dispatcher: ExecutionContext) extends Task(new jfxc.Task[String] {
+  given formats: Formats = DefaultFormats
 
   override def call(): String = {
     Await.result( getJoke, 10 seconds ) // Using Task and Future together has its limitations.
@@ -51,8 +52,8 @@ class JokeTask(implicit val system: ActorSystem, val dispatcher: ExecutionContex
 
 object JokeApp extends JFXApp3 {
   val conf = ConfigFactory.load("app.conf")
-  implicit val system = ActorSystem.create("joke", conf)
-  implicit val dispatcher = system.dispatcher
+  given system: ActorSystem = ActorSystem.create("joke", conf)
+  given dispatcher: ExecutionContext = system.dispatcher
 
   val webView: WebView = new WebView()
 

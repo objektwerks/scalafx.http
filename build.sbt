@@ -3,8 +3,8 @@ organization := "objektwerks"
 version := "0.1-SNAPSHOT"
 scalaVersion := "3.2.2"
 libraryDependencies ++= {
-  val akkaVersion = "2.7.0"
-  val akkaHttpVersion = "10.4.0"
+  val akkaVersion = "2.8.0-M4"
+  val akkaHttpVersion = "10.5.0-M1"
   val json4sVersion = "4.0.6"
   Seq(
     "org.scalafx" %% "scalafx" % "19.0.0-R30",
