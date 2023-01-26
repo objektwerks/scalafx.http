@@ -8,7 +8,7 @@ Run
 
 Design
 ------
->The app uses the Chuck Norris ( http://api.icndb.com/jokes/random/ ) rest service. Of course, the app does
+>The app uses the Chuck Norris ( https://api.chucknorris.io/jokes/random ) rest service. Of course, the app does
 not call this service, Chuck does. The main web site can be found at: http://www.icndb.com/the-jokes-2/
 
 * http://api.icndb.com/jokes/random
