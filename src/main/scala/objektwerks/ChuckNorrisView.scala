@@ -1,5 +1,6 @@
 package objektwerks
 
+import java.net.URI
 import java.util.concurrent.Executor
 
 import scalafx.Includes.*
@@ -12,7 +13,7 @@ import scalafx.scene.image.Image
 import scalafx.scene.web.WebView
 import java.util.concurrent.Executor
 
-class ChuckNorrisView(executor: Executor):
+class ChuckNorrisView(executor: Executor, uri: URI):
   def logo = new Image(Image.getClass.getResourceAsStream("/cn.jpg"))
 
   val jokeProperty = ObjectProperty[String]("")
@@ -33,7 +34,7 @@ class ChuckNorrisView(executor: Executor):
     prefHeight = 30
     text = "Joke"
     onAction = _ => {
-      val task = ChuckNorrisTask(executor)
+      val task = ChuckNorrisTask(executor, uri)
       jokeProperty <== task.value
       jokeIndicator.visible <== task.running
       this.disable <== task.running
