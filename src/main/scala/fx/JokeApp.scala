@@ -49,7 +49,7 @@ object JokeApp extends JFXApp3:
 
   override def start(): Unit =
     stage = new JFXApp3.PrimaryStage:
-      title.value = "Chuck Norris Jokes"
+      title = "Chuck Norris Jokes"
       scene = new Scene {
         stylesheets.add("app.css")
         root = contentPane
