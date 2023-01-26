@@ -46,18 +46,6 @@ object JokeApp extends JFXApp3:
   given system: ActorSystem = ActorSystem.create("joke", conf)
   given dispatcher: ExecutionContext = system.dispatcher
 
-  override def start(): Unit =
-    stage = new JFXApp3.PrimaryStage:
-      scene = new Scene {
-        root = contentPane
-        stylesheets.add("app.css")
-      }
-      title = "Chuck Norris Jokes"
-      maxWidth = 400
-      maxHeight = 200
-
-  override def stopApp(): Unit = println("Joke app stopped.")
-
   val jokeProperty = ObjectProperty[String]("")
   jokeProperty.onChange { (_, _, newJoke) =>
     jokeTextArea.text = newJoke
@@ -75,7 +63,7 @@ object JokeApp extends JFXApp3:
     prefHeight = 30
     text = "Joke"
     onAction = _ => {
-      val task = new JokeTask()
+      val task = JokeTask()
       jokeProperty <== task.value
       jokeIndicator.visible <== task.running
       this.disable <== task.running
@@ -96,3 +84,15 @@ object JokeApp extends JFXApp3:
     spacing = 6
     padding = Insets(6)
     children = List(toolbar, jokeTextAreaPane)
+
+  override def start(): Unit =
+    stage = new JFXApp3.PrimaryStage:
+      scene = new Scene {
+        root = contentPane
+        stylesheets.add("app.css")
+      }
+      title = "Chuck Norris Jokes"
+      maxWidth = 400
+      maxHeight = 200
+
+  override def stopApp(): Unit = println("Joke app stopped.")
