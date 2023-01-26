@@ -24,6 +24,7 @@ class ChuckNorrisView(using system: ActorSystem, dispatcher: ExecutionContext):
   val jokeWebView = new WebView()
 
   val jokeWebViewPane = new VBox:
+    id = "web-view-pane"
     spacing = 3
     padding = Insets(3)
     children = List(jokeWebView)
