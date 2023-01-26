@@ -48,26 +48,27 @@ object JokeApp extends JFXApp3:
 
   override def start(): Unit =
     stage = new JFXApp3.PrimaryStage:
-      title = "Chuck Norris Jokes"
       scene = new Scene {
-        stylesheets.add("app.css")
         root = contentPane
+        stylesheets.add("app.css")
       }
+      title = "Chuck Norris Jokes"
+      maxWidth = 400
+      maxHeight = 200
 
   override def stopApp(): Unit = println("Joke app stopped.")
-
-  val jokeTextArea = new TextArea()
 
   val jokeProperty = ObjectProperty[String]("")
   jokeProperty.onChange { (_, _, newJoke) =>
     jokeTextArea.text = newJoke
   }
 
-  val jokeIndicator = new ProgressIndicator:
-    prefWidth = 60
-    prefHeight = 30
-    progress = -1.0
-    visible = false
+  val jokeTextArea = new TextArea()
+
+  val jokeTextAreaPane = new VBox:
+    spacing = 3
+    padding = Insets(3)
+    children = List(jokeTextArea)
 
   val jokeButton = new Button:
     prefWidth = 60
@@ -81,19 +82,17 @@ object JokeApp extends JFXApp3:
       dispatcher.execute(task)
     }
 
+  val jokeIndicator = new ProgressIndicator:
+    prefWidth = 60
+    prefHeight = 30
+    progress = -1.0
+    visible = false
+
   val toolbar = new ToolBar:
     prefHeight = 40
     content = List(jokeButton, new Separator(), jokeIndicator)
 
-  val webViewPane = new VBox:
-    id = "web-view-pane"
-    spacing = 3
-    padding = Insets(3)
-    children = List(jokeTextArea)
-
   val contentPane = new VBox:
-    maxWidth = 400
-    maxHeight = 200
     spacing = 6
     padding = Insets(6)
-    children = List(toolbar, webViewPane)
+    children = List(toolbar, jokeTextAreaPane)
