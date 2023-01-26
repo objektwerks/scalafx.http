@@ -50,10 +50,20 @@ class JokeTask(using system: ActorSystem, dispatcher: ExecutionContext) extends 
   }
 })
 
-object JokeApp extends JFXApp3 {
+object JokeApp extends JFXApp3:
   val conf = ConfigFactory.load("app.conf")
   given system: ActorSystem = ActorSystem.create("joke", conf)
   given dispatcher: ExecutionContext = system.dispatcher
+
+  override def start(): Unit =
+    stage = new JFXApp3.PrimaryStage:
+      title.value = "Chuck Norris Jokes"
+      scene = new Scene {
+        stylesheets.add("app.css")
+        root = contentPane
+      }
+
+  override def stopApp(): Unit = println("Joke app stopped.")
 
   val webView: WebView = new WebView()
 
@@ -62,14 +72,13 @@ object JokeApp extends JFXApp3 {
     webView.engine.loadContent(jokeProperty.value)
   })
 
-  val jokeIndicator = new ProgressIndicator {
+  val jokeIndicator = new ProgressIndicator:
     prefWidth = 60
     prefHeight = 30
     progress = -1.0
     visible = false
-  }
 
-  val jokeButton = new Button {
+  val jokeButton = new Button:
     prefWidth = 60
     prefHeight = 30
     text = "Joke"
@@ -80,33 +89,20 @@ object JokeApp extends JFXApp3 {
       this.disable <== task.running
       dispatcher.execute(task)
     }
-  }
 
-  val toolbar = new ToolBar {
+  val toolbar = new ToolBar:
     prefHeight = 40
     content = List(jokeButton, new Separator(), jokeIndicator)
-  }
 
-  val webViewPane = new VBox {
+  val webViewPane = new VBox:
     id = "web-view-pane"
     spacing = 3
     padding = Insets(3)
     children = List(webView)
-  }
 
-  val contentPane = new VBox {
+  val contentPane = new VBox:
     maxWidth = 400
     maxHeight = 200
     spacing = 6
     padding = Insets(6)
     children = List(toolbar, webViewPane)
-  }
-
-  stage = new JFXApp3.PrimaryStage {
-    title.value = "Chuck Norris Jokes"
-    scene = new Scene {
-      stylesheets.add("app.css")
-      root = contentPane
-    }
-  }
-}
