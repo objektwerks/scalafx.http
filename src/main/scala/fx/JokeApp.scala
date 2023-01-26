@@ -34,8 +34,8 @@ class JokeTask(using system: ActorSystem, dispatcher: ExecutionContext) extends 
     client.singleRequest( HttpRequest(uri = "https://api.chucknorris.io/jokes/random") ).flatMap { response =>
       Unmarshal(response)
         .to[String]
-        .map { json => s"<p>${parseJson(json)}</p>" }
-        .recover { case error => s"<p>${error.getMessage}</p>" }
+        .map { json => s"${parseJson(json)}" }
+        .recover { case error => s"${error.getMessage}" }
     }
 
   def parseJson(json: String): String = ujson.read(json).str
