@@ -9,9 +9,6 @@ import com.typesafe.config.ConfigFactory
 
 import javafx.{concurrent => jfxc}
 
-import org.json4s.*
-import org.json4s.jackson.JsonMethods.*
-
 import scala.concurrent.ExecutionContext
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
@@ -27,9 +24,9 @@ import scalafx.scene.control.*
 import scalafx.scene.layout.VBox
 import scalafx.scene.web.WebView
 
-class JokeTask(using system: ActorSystem, dispatcher: ExecutionContext) extends Task(new jfxc.Task[String] {
-  given formats: Formats = DefaultFormats
+import ujson.*
 
+class JokeTask(using system: ActorSystem, dispatcher: ExecutionContext) extends Task(new jfxc.Task[String] {
   override def call(): String = {
     Await.result( getJoke, 10 seconds ) // Using Task and Future together has its limitations.
   }
@@ -44,10 +41,7 @@ class JokeTask(using system: ActorSystem, dispatcher: ExecutionContext) extends 
     }
   }
 
-  def parseJson(json: String): String = {
-    val jValue = parse(json) 
-    (jValue \ "value").extract[String]
-  }
+  def parseJson(json: String): String = ujson.read(json).str
 })
 
 object JokeApp extends JFXApp3:
