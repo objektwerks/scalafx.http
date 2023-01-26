@@ -1,25 +1,16 @@
 package objektwerks
 
-import akka.actor.ActorSystem
-import akka.http.scaladsl.unmarshalling.Unmarshal
-import akka.http.scaladsl.Http
-import akka.http.scaladsl.model.HttpRequest
-
 import javafx.{concurrent => jfxc}
 
 import scalafx.concurrent.Task
 
-import scala.concurrent.ExecutionContext
-import scala.concurrent.{Await, Future}
-import scala.concurrent.duration._
-import scala.language.postfixOps
-
 import ujson.*
 
-class ChuckNorrisTask(using system: ActorSystem, dispatcher: ExecutionContext) extends Task( new jfxc.Task[String]:
-  override def call(): String = Await.result( getJoke, 10 seconds )
+class ChuckNorrisTask() extends Task( new jfxc.Task[String]:
+  override def call(): String = getJoke()
 
-  def getJoke: Future[String] =
+  def getJoke(): String =
+    /*
     val client = Http()
     client.singleRequest( HttpRequest(uri = "https://api.chucknorris.io/jokes/random") ).flatMap { response =>
       Unmarshal(response)
@@ -31,6 +22,8 @@ class ChuckNorrisTask(using system: ActorSystem, dispatcher: ExecutionContext) e
           s"<p>${error.getMessage}</p>"
         }
     }
+    */
+    "TODO!"
 
   def parseJson(json: String): String =
     val data = ujson.read(json)
