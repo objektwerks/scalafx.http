@@ -12,7 +12,7 @@ import scala.concurrent.ExecutionContext
 
 object ChuckNorrisApp extends JFXApp3:
   val conf = ConfigFactory.load("app.conf")
-  given system: ActorSystem = ActorSystem.create("chuck norris", conf)
+  given system: ActorSystem = ActorSystem.create("chuck-norris", conf)
   given dispatcher: ExecutionContext = system.dispatcher
 
   override def start(): Unit =
