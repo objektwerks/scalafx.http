@@ -1,5 +1,7 @@
 package objektwerks
 
+import java.util.concurrent.Executor
+
 import scalafx.Includes.*
 import scalafx.beans.property.ObjectProperty
 import scalafx.geometry.Insets
@@ -8,8 +10,9 @@ import scalafx.scene.control.{Button, ProgressIndicator, Separator, TextArea, To
 import scalafx.scene.layout.VBox
 import scalafx.scene.image.Image
 import scalafx.scene.web.WebView
+import java.util.concurrent.Executor
 
-class ChuckNorrisView():
+class ChuckNorrisView(executor: Executor):
   def logo = new Image(Image.getClass.getResourceAsStream("/cn.jpg"))
 
   val jokeProperty = ObjectProperty[String]("")
@@ -30,11 +33,11 @@ class ChuckNorrisView():
     prefHeight = 30
     text = "Joke"
     onAction = _ => {
-      val task = ChuckNorrisTask()
+      val task = ChuckNorrisTask(executor)
       jokeProperty <== task.value
       jokeIndicator.visible <== task.running
       this.disable <== task.running
-      // TODO Virtual Threads? dispatcher.execute(task)
+      executor.execute(task)
     }
 
   val jokeIndicator = new ProgressIndicator:

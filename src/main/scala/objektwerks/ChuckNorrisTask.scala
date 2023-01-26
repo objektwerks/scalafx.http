@@ -1,12 +1,13 @@
 package objektwerks
 
+import java.util.concurrent.Executor
 import javafx.{concurrent => jfxc}
 
 import scalafx.concurrent.Task
 
 import ujson.*
 
-class ChuckNorrisTask() extends Task( new jfxc.Task[String]:
+class ChuckNorrisTask(executor: Executor) extends Task( new jfxc.Task[String]:
   override def call(): String = getJoke()
 
   def getJoke(): String =
