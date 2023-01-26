@@ -16,7 +16,7 @@ import scala.language.postfixOps
 
 import ujson.*
 
-class JokeTask(using system: ActorSystem, dispatcher: ExecutionContext) extends Task( new jfxc.Task[String]:
+class ChuckNorrisTask(using system: ActorSystem, dispatcher: ExecutionContext) extends Task( new jfxc.Task[String]:
   override def call(): String = Await.result( getJoke, 10 seconds )
 
   def getJoke: Future[String] =

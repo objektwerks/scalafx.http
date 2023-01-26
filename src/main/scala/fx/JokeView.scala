@@ -33,7 +33,7 @@ class JokeView(using system: ActorSystem, dispatcher: ExecutionContext):
     prefHeight = 30
     text = "Joke"
     onAction = _ => {
-      val task = JokeTask()
+      val task = ChuckNorrisTask()
       jokeProperty <== task.value
       jokeIndicator.visible <== task.running
       this.disable <== task.running
