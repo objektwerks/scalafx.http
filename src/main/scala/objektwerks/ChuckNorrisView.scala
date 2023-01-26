@@ -7,7 +7,7 @@ import scalafx.Includes.*
 import scalafx.beans.property.ObjectProperty
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
-import scalafx.scene.control.{Button, ProgressIndicator, Separator, TextArea, ToolBar}
+import scalafx.scene.control.{Button, ProgressIndicator, Separator, ToolBar}
 import scalafx.scene.layout.VBox
 import scalafx.scene.image.Image
 import scalafx.scene.web.WebView
