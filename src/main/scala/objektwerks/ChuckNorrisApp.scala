@@ -1,8 +1,9 @@
 package objektwerks
 
 import scalafx.application.JFXApp3
+import com.typesafe.scalalogging.LazyLogging
 
-object ChuckNorrisApp extends JFXApp3:
+object ChuckNorrisApp extends JFXApp3 with LazyLogging:
   override def start(): Unit =
     val view = ChuckNorrisView()
     stage = new JFXApp3.PrimaryStage:
@@ -11,6 +12,7 @@ object ChuckNorrisApp extends JFXApp3:
       maxWidth = 400
       maxHeight = 200
       icons.add(view.logo)
+    logger.info("*** Chuck Norris app started.")
 
 
-  override def stopApp(): Unit = println("Joke app stopped.")
+  override def stopApp(): Unit = logger.info("*** Chuck Norris app stopped.")
