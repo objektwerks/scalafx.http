@@ -57,7 +57,7 @@ object JokeApp extends JFXApp3:
 
   override def stopApp(): Unit = println("Joke app stopped.")
 
-  val webView: WebView = new WebView()
+  val webView: WebView = WebView()
 
   val jokeProperty = new StringProperty()
   jokeProperty.onChange({
