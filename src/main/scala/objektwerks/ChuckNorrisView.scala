@@ -24,7 +24,7 @@ class ChuckNorrisView(executor: Executor, uri: URI):
   val jokeWebView = new WebView()
 
   val jokeWebViewPane = new VBox:
-    id = "web-view-pane"
+    id = "web-view-pane" // see app.css
     spacing = 3
     padding = Insets(3)
     children = List(jokeWebView)
