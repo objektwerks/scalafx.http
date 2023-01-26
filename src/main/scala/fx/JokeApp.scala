@@ -59,7 +59,7 @@ object JokeApp extends JFXApp3:
   val jokeTextArea = new TextArea()
 
   val jokeProperty = ObjectProperty[String]("")
-  jokeProperty.onChange { (_, oldJoke, newJoke) =>
+  jokeProperty.onChange { (_, _, newJoke) =>
     jokeTextArea.text = newJoke
   }
 
