@@ -26,12 +26,11 @@ import scalafx.scene.web.WebView
 
 import ujson.*
 
-class JokeTask(using system: ActorSystem, dispatcher: ExecutionContext) extends Task(new jfxc.Task[String] {
-  override def call(): String = {
+class JokeTask(using system: ActorSystem, dispatcher: ExecutionContext) extends Task(new jfxc.Task[String]:
+  override def call(): String =
     Await.result( getJoke, 10 seconds ) // Using Task and Future together has its limitations.
-  }
 
-  def getJoke: Future[String] = {
+  def getJoke: Future[String] =
     val client = Http()
     client.singleRequest( HttpRequest(uri = "https://api.chucknorris.io/jokes/random") ).flatMap { response =>
       Unmarshal(response)
@@ -39,10 +38,9 @@ class JokeTask(using system: ActorSystem, dispatcher: ExecutionContext) extends 
         .map { json => s"<p>${parseJson(json)}</p>" }
         .recover { case error => s"<p>${error.getMessage}</p>" }
     }
-  }
 
   def parseJson(json: String): String = ujson.read(json).str
-})
+)
 
 object JokeApp extends JFXApp3:
   val conf = ConfigFactory.load("app.conf")
