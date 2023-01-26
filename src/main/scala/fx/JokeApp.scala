@@ -16,13 +16,12 @@ import scala.language.postfixOps
 
 import scalafx.Includes.*
 import scalafx.application.JFXApp3
-import scalafx.beans.property.StringProperty
+import scalafx.beans.property.ObjectProperty
 import scalafx.concurrent.Task
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.control.*
 import scalafx.scene.layout.VBox
-import scalafx.scene.web.WebView
 
 import ujson.*
 
@@ -57,12 +56,12 @@ object JokeApp extends JFXApp3:
 
   override def stopApp(): Unit = println("Joke app stopped.")
 
-  val webView = WebView()
+  val jokeTextArea = new TextArea()
 
-  val jokeProperty = new StringProperty()
-  jokeProperty.onChange({
-    webView.engine.loadContent(jokeProperty.value)
-  })
+  val jokeProperty = ObjectProperty[String]("")
+  jokeProperty.onChange { (_, oldJoke, newJoke) =>
+    jokeTextArea.text = newJoke
+  }
 
   val jokeIndicator = new ProgressIndicator:
     prefWidth = 60
@@ -90,7 +89,7 @@ object JokeApp extends JFXApp3:
     id = "web-view-pane"
     spacing = 3
     padding = Insets(3)
-    children = List(webView)
+    children = List(jokeTextArea)
 
   val contentPane = new VBox:
     maxWidth = 400
