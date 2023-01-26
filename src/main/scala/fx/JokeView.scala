@@ -8,11 +8,21 @@ import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.control.{Button, ProgressIndicator, Separator, TextArea, ToolBar}
 import scalafx.scene.layout.VBox
+import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.web.WebView
 
 import scala.concurrent.ExecutionContext
 
 class JokeView(using system: ActorSystem, dispatcher: ExecutionContext):
+  private def logo = new Image(Image.getClass.getResourceAsStream("/cn.webp"))
+
+  private def loadImageView(path: String): ImageView = new ImageView:
+    image = new Image(Image.getClass.getResourceAsStream(path))
+    fitHeight = 25
+    fitWidth = 25
+    preserveRatio = true
+    smooth = true
+
   val jokeProperty = ObjectProperty[String]("")
   jokeProperty.onChange { (_, _, newJoke) =>
     jokeWebView.engine.loadContent(newJoke)
