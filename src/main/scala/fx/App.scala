@@ -41,7 +41,7 @@ class JokeTask(using system: ActorSystem, dispatcher: ExecutionContext) extends 
   def parseJson(json: String): String = ujson.read(json).str
 )
 
-object JokeApp extends JFXApp3:
+object App extends JFXApp3:
   val conf = ConfigFactory.load("app.conf")
   given system: ActorSystem = ActorSystem.create("joke", conf)
   given dispatcher: ExecutionContext = system.dispatcher
