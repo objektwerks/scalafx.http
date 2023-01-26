@@ -32,10 +32,12 @@ class ChuckNorrisTask(executor: Executor, uri: URI) extends Task( new jfxc.Task[
         .GET()
         .build
       
-      val httpResponse = client.send( httpRequest, BodyHandlers.ofString )
-      val json = httpResponse.body
+      val json = client
+        .send( httpRequest, BodyHandlers.ofString )
+        .body
+      
       s"<p>${parseJson(json)}</p>"
-    }.recover { case error: Exception => s"<p>${error.getMessage}</p>"}
+    }.recover { case error: Exception => s"<p>${error.getMessage}</p>" }
      .get
 
   def parseJson(json: String): String =
