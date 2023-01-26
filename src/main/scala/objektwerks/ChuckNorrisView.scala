@@ -1,7 +1,5 @@
 package objektwerks
 
-import akka.actor.ActorSystem
-
 import scalafx.Includes.*
 import scalafx.beans.property.ObjectProperty
 import scalafx.geometry.Insets
@@ -11,9 +9,7 @@ import scalafx.scene.layout.VBox
 import scalafx.scene.image.Image
 import scalafx.scene.web.WebView
 
-import scala.concurrent.ExecutionContext
-
-class ChuckNorrisView(using system: ActorSystem, dispatcher: ExecutionContext):
+class ChuckNorrisView():
   def logo = new Image(Image.getClass.getResourceAsStream("/cn.jpg"))
 
   val jokeProperty = ObjectProperty[String]("")
@@ -38,7 +34,7 @@ class ChuckNorrisView(using system: ActorSystem, dispatcher: ExecutionContext):
       jokeProperty <== task.value
       jokeIndicator.visible <== task.running
       this.disable <== task.running
-      dispatcher.execute(task)
+      // TODO Virtual Threads? dispatcher.execute(task)
     }
 
   val jokeIndicator = new ProgressIndicator:
