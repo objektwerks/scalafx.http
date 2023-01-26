@@ -8,7 +8,7 @@ Run
 
 Design
 ------
->This app uses the Chuck Norris ( https://api.chucknorris.io/jokes/random ) rest service. Of course, this
+>This app uses a Chuck Norris ( https://api.chucknorris.io/jokes/random ) rest service. Of course, this
 >app does not call this service, Chuck does. The main web site can be found at: https://api.chucknorris.io/
 
 Json
