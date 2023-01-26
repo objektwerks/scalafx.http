@@ -13,7 +13,7 @@ import scalafx.scene.web.WebView
 
 import scala.concurrent.ExecutionContext
 
-class JokeView(using system: ActorSystem, dispatcher: ExecutionContext):
+class ChuckNorrisView(using system: ActorSystem, dispatcher: ExecutionContext):
   def logo = new Image(Image.getClass.getResourceAsStream("/cn.jpg"))
 
   val jokeProperty = ObjectProperty[String]("")

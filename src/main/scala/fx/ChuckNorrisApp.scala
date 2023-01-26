@@ -16,7 +16,7 @@ object ChuckNorrisApp extends JFXApp3:
   given dispatcher: ExecutionContext = system.dispatcher
 
   override def start(): Unit =
-    val view = JokeView()
+    val view = ChuckNorrisView()
     stage = new JFXApp3.PrimaryStage:
       scene = view.scene
       title = "Chuck Norris Jokes"
