@@ -8,21 +8,22 @@ import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.control.{Button, ProgressIndicator, Separator, TextArea, ToolBar}
 import scalafx.scene.layout.VBox
+import scalafx.scene.web.WebView
 
 import scala.concurrent.ExecutionContext
 
 class JokeView(using system: ActorSystem, dispatcher: ExecutionContext):
   val jokeProperty = ObjectProperty[String]("")
   jokeProperty.onChange { (_, _, newJoke) =>
-    jokeTextArea.text = newJoke
+    jokeWebView.engine.loadContent(newJoke)
   }
 
-  val jokeTextArea = new TextArea()
+  val jokeWebView = new WebView()
 
-  val jokeTextAreaPane = new VBox:
+  val jokeWebViewPane = new VBox:
     spacing = 3
     padding = Insets(3)
-    children = List(jokeTextArea)
+    children = List(jokeWebView)
 
   val jokeButton = new Button:
     prefWidth = 60
@@ -42,14 +43,14 @@ class JokeView(using system: ActorSystem, dispatcher: ExecutionContext):
     progress = -1.0
     visible = false
 
-  val toolbar = new ToolBar:
+  val jokeToolBar = new ToolBar:
     prefHeight = 40
     content = List(jokeButton, new Separator(), jokeIndicator)
 
   val contentPane = new VBox:
     spacing = 6
     padding = Insets(6)
-    children = List(toolbar, jokeTextAreaPane)
+    children = List(jokeToolBar, jokeWebViewPane)
 
   val scene = new Scene:
     root = contentPane
