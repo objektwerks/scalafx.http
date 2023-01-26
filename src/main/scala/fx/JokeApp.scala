@@ -2,7 +2,6 @@ package fx
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.unmarshalling.Unmarshal
-
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.HttpRequest
 
