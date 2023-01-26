@@ -21,10 +21,10 @@ import scalafx.application.JFXApp3
 import scalafx.beans.property.StringProperty
 import scalafx.concurrent.Task
 import scalafx.geometry.Insets
-import scalafx.scene.control._
+import scalafx.scene.Scene
+import scalafx.scene.control.*
 import scalafx.scene.layout.VBox
 import scalafx.scene.web.WebView
-import scalafx.scene.Scene
 
 class JokeTask(implicit val system: ActorSystem, val dispatcher: ExecutionContext) extends Task(new jfxc.Task[String] {
   implicit lazy val formats = DefaultFormats
