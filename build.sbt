@@ -1,7 +1,7 @@
 name := "scalafx.akka.http"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "2.13.10"
+scalaVersion := "3.2.2"
 libraryDependencies ++= {
   val akkaVersion = "2.7.0"
   val akkaHttpVersion = "10.4.0"

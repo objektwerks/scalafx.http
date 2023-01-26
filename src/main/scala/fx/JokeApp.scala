@@ -17,14 +17,14 @@ import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
-import scalafx.application.JFXApp
+import scalafx.application.JFXApp3
 import scalafx.beans.property.StringProperty
 import scalafx.concurrent.Task
 import scalafx.geometry.Insets
-import scalafx.scene.Scene
 import scalafx.scene.control._
 import scalafx.scene.layout.VBox
 import scalafx.scene.web.WebView
+import scalafx.scene.Scene
 
 class JokeTask(implicit val system: ActorSystem, val dispatcher: ExecutionContext) extends Task(new jfxc.Task[String] {
   implicit lazy val formats = DefaultFormats
@@ -35,7 +35,7 @@ class JokeTask(implicit val system: ActorSystem, val dispatcher: ExecutionContex
 
   def getJoke: Future[String] = {
     val client = Http()
-    client.singleRequest( HttpRequest(uri = "http://api.icndb.com/jokes/random/") ).flatMap { response =>
+    client.singleRequest( HttpRequest(uri = "https://api.chucknorris.io/jokes/random") ).flatMap { response =>
       Unmarshal(response)
         .to[String]
         .map { json => s"<p>${parseJson(json)}</p>" }
@@ -45,11 +45,11 @@ class JokeTask(implicit val system: ActorSystem, val dispatcher: ExecutionContex
 
   def parseJson(json: String): String = {
     val jValue = parse(json) 
-    (jValue \ "value" \ "joke").extract[String]
+    (jValue \ "value").extract[String]
   }
 })
 
-object JokeApp extends JFXApp {
+object JokeApp extends JFXApp3 {
   val conf = ConfigFactory.load("app.conf")
   implicit val system = ActorSystem.create("joke", conf)
   implicit val dispatcher = system.dispatcher
@@ -101,7 +101,7 @@ object JokeApp extends JFXApp {
     children = List(toolbar, webViewPane)
   }
 
-  stage = new JFXApp.PrimaryStage {
+  stage = new JFXApp3.PrimaryStage {
     title.value = "Chuck Norris Jokes"
     scene = new Scene {
       stylesheets.add("app.css")
