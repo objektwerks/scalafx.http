@@ -28,5 +28,7 @@ class JokeTask(using system: ActorSystem, dispatcher: ExecutionContext) extends 
         .recover { case error => s"${error.getMessage}" }
     }
 
-  def parseJson(json: String): String = ujson.read(json).str
+  def parseJson(json: String): String =
+    val data = ujson.read(json)
+    data("value").str
 )
