@@ -40,7 +40,5 @@ class ChuckNorrisTask(executor: Executor, uri: URI) extends Task( new jfxc.Task[
     }.recover { case error: Exception => s"<p>${error.getMessage}</p>" }
      .get
 
-  def parseJson(json: String): String =
-    val data = ujson.read(json)
-    data("value").str
+  def parseJson(json: String): String = ujson.read(json)("value").str
 )
