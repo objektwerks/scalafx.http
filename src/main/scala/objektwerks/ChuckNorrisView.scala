@@ -16,7 +16,7 @@ class ChuckNorrisView(executor: Executor, uri: URI):
   private def loadImageView(path: String): ImageView = new ImageView:
     image = new Image(Image.getClass.getResourceAsStream(path))
     fitHeight = 100
-    fitWidth = 400
+    fitWidth = 100
     preserveRatio = true
     smooth = true
 
@@ -51,7 +51,7 @@ class ChuckNorrisView(executor: Executor, uri: URI):
 
   val toolbar = new ToolBar:
     prefHeight = 40
-    content = List(jokeButton, new Separator(), busyIndicator)
+    content = List(logoImageView, new Separator(), jokeButton, new Separator(), busyIndicator)
 
   val webviewPane = new VBox:
     id = "web-view-pane" // see app.css
@@ -62,7 +62,7 @@ class ChuckNorrisView(executor: Executor, uri: URI):
   val contentPane = new VBox:
     spacing = 6
     padding = Insets(6)
-    children = List(logoImageView, toolbar, webviewPane)
+    children = List(toolbar, webviewPane)
 
   val scene = new Scene:
     root = contentPane
