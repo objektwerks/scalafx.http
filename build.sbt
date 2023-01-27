@@ -1,6 +1,6 @@
 name := "scalafx.http"
 organization := "objektwerks"
-version := "0.1"
+version := "0.2-SNAPSHOT"
 scalaVersion := "3.2.2"
 libraryDependencies ++= {
   Seq(
