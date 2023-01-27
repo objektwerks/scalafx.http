@@ -9,11 +9,20 @@ import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.control.{Button, ProgressIndicator, Separator, ToolBar}
 import scalafx.scene.layout.VBox
-import scalafx.scene.image.Image
+import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.web.WebView
 
 class ChuckNorrisView(executor: Executor, uri: URI):
+  private def loadImageView(path: String): ImageView = new ImageView:
+    image = new Image(Image.getClass.getResourceAsStream(path))
+    fitHeight = 25
+    fitWidth = 25
+    preserveRatio = true
+    smooth = true
+
   def logo = new Image(Image.getClass.getResourceAsStream("/cn.jpg"))
+
+  def logoView = loadImageView("/cn.jpg")
 
   val webview = new WebView()
 
