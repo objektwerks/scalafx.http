@@ -15,14 +15,14 @@ import scalafx.scene.web.WebView
 class ChuckNorrisView(executor: Executor, uri: URI):
   private def loadImageView(path: String): ImageView = new ImageView:
     image = new Image(Image.getClass.getResourceAsStream(path))
-    fitHeight = 25
-    fitWidth = 25
+    fitHeight = 100
+    fitWidth = 400
     preserveRatio = true
     smooth = true
 
   def logo = new Image(Image.getClass.getResourceAsStream("/cn.jpg"))
 
-  def logoView = loadImageView("/cn.jpg")
+  def logoImageView = loadImageView("/cn.jpg")
 
   val webview = new WebView()
 
@@ -62,7 +62,7 @@ class ChuckNorrisView(executor: Executor, uri: URI):
   val contentPane = new VBox:
     spacing = 6
     padding = Insets(6)
-    children = List(toolbar, webviewPane)
+    children = List(logoImageView, toolbar, webviewPane)
 
   val scene = new Scene:
     root = contentPane

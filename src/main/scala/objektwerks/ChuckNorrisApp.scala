@@ -17,7 +17,7 @@ object ChuckNorrisApp extends JFXApp3 with LazyLogging:
       scene = view.scene
       title = "Chuck Norris Jokes"
       maxWidth = 400
-      maxHeight = 200
+      maxHeight = 300
       icons.add(view.logo)
     logger.info("*** Chuck Norris app started.")
 
