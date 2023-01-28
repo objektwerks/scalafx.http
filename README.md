@@ -4,7 +4,7 @@ ScalaFX Http App
 
 Run
 ---
-1. sbt clean compile run
+1. sbt clean run
 
 Design
 ------
