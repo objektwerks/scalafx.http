@@ -21,8 +21,7 @@ Launch Json
   ]
 }
 ```
->Then select the run link inside the objektwerks.ChuckNorrisApp source file.
->Presently this does not work.
+>Then select the run link inside objektwerks.ChuckNorrisApp. Presently this ***does not*** work.
 
 Run
 ---
