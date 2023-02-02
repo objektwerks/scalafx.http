@@ -21,7 +21,7 @@ Launch Json
   ]
 }
 ```
->Then select the run link inside objektwerks.ChuckNorrisApp. Presently this ***does not*** work.
+>Then select menu **Run** > **Run Without Debugging**
 
 Run
 ---
