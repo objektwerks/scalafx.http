@@ -2,6 +2,29 @@ ScalaFX Http App
 ----------------
 >ScalaFx Http app that queries and displays Chuck Norris jokes using JDK http client, virtual threads and Scala 3.
 
+Launch Json
+-----------
+>To enable preview features and add modules, one is supposed to create a ./.vscode/launch.json file
+as follows:
+```
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "scala",
+      "request": "launch",
+      "name": "Chuck Norris App",
+      "mainClass": "objektwerks.ChuckNorrisApp",
+      "args": [],
+      "jvmOptions": ["--enable-preview", "--add-modules=jdk.incubator.concurrent"],
+      "env": {}
+    }
+  ]
+}
+```
+>Then select the run link inside the objektwerks.ChuckNorrisApp source file.
+>Presently this does not work.
+
 Run
 ---
 1. sbt clean run
