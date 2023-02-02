@@ -4,8 +4,7 @@ ScalaFX Http App
 
 Launch Json
 -----------
->To enable preview features and add modules, one is supposed to create a ./.vscode/launch.json file
-as follows:
+>To enable preview features and add modules, create a ./.vscode/launch.json file as follows:
 ```
 {
   "version": "0.2.0",
