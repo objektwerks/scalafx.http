@@ -1,6 +1,7 @@
 package objektwerks
 
 import java.net.URI
+import java.net.http.HttpClient
 import java.util.concurrent.Executor
 
 import scalafx.Includes.*
@@ -13,7 +14,10 @@ import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.web.WebView
 
 class ChuckNorrisView(executor: Executor, uri: URI):
-  private val task = ChuckNorrisTask(executor, uri)
+  private val client = HttpClient
+                         .newBuilder
+                         .executor(executor)
+                         .build
 
   private def loadImageView(path: String): ImageView = new ImageView:
     image = new Image(Image.getClass.getResourceAsStream(path))
@@ -38,6 +42,7 @@ class ChuckNorrisView(executor: Executor, uri: URI):
     prefHeight = 30
     text = "New Joke"
     onAction = _ => {
+      val task = ChuckNorrisTask(client, uri)
       jokeProperty <== task.value
       busyIndicator.visible <== task.running
       this.disable <== task.running

@@ -15,11 +15,7 @@ import scala.util.Try
 
 import ujson.*
 
-class ChuckNorrisTask(executor: Executor, uri: URI) extends Task( new jfxc.Task[String]:
-  private val client = HttpClient
-                         .newBuilder
-                         .executor(executor)
-                         .build
+class ChuckNorrisTask(client: HttpClient, uri: URI) extends Task( new jfxc.Task[String]:
   override def call(): String = getJoke()
 
   def getJoke(): String =
