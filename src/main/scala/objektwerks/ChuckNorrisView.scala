@@ -13,6 +13,8 @@ import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.web.WebView
 
 class ChuckNorrisView(executor: Executor, uri: URI):
+  private val task = ChuckNorrisTask(executor, uri)
+
   private def loadImageView(path: String): ImageView = new ImageView:
     image = new Image(Image.getClass.getResourceAsStream(path))
     fitHeight = 100
@@ -36,7 +38,6 @@ class ChuckNorrisView(executor: Executor, uri: URI):
     prefHeight = 30
     text = "New Joke"
     onAction = _ => {
-      val task = ChuckNorrisTask(executor, uri)
       jokeProperty <== task.value
       busyIndicator.visible <== task.running
       this.disable <== task.running
