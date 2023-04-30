@@ -7,6 +7,6 @@ libraryDependencies ++= {
     "org.scalafx" %% "scalafx" % "20.0.0-R31",
     "com.lihaoyi" %% "ujson" % "3.1.0",
     "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
-    "ch.qos.logback" % "logback-classic" % "1.4.6"
+    "ch.qos.logback" % "logback-classic" % "1.4.7"
   )
 }
