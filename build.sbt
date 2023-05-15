@@ -10,3 +10,6 @@ libraryDependencies ++= {
     "ch.qos.logback" % "logback-classic" % "1.4.7"
   )
 }
+scalacOptions ++= Seq(
+  "-Wunused:all"
+)
