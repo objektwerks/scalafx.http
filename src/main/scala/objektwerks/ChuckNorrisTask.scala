@@ -5,12 +5,9 @@ import java.net.http.{HttpClient, HttpRequest}
 import java.net.http.HttpResponse.BodyHandlers
 import java.time.Duration
 import java.time.temporal.ChronoUnit.SECONDS
-import java.util.concurrent.Executor
-
 import javafx.{concurrent => jfxc}
 
 import scalafx.concurrent.Task
-
 import scala.util.Try
 
 import ujson.*
