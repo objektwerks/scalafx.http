@@ -1,6 +1,6 @@
 ScalaFX Http App
 ----------------
->ScalaFx Http app that queries and displays Chuck Norris jokes using JDK http client, virtual threads and Scala 3.
+>ScalaFx Http app that queries and displays Chuck Norris jokes using JDK http client, virtual threads, ujson and Scala 3.
 
 Launch Json
 -----------
