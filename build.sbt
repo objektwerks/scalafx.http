@@ -1,7 +1,7 @@
 name := "scalafx.http"
 organization := "objektwerks"
 version := "0.3-SNAPSHOT"
-scalaVersion := "3.6.4" // Scala 3.7.0-RC2 breaks ScalaFx!
+scalaVersion := "3.6.4" // Scala 3.7.0-RC3 breaks ScalaFx!
 libraryDependencies ++= {
   Seq(
     "org.scalafx" %% "scalafx" % "23.0.1-R34",
