@@ -1,7 +1,7 @@
 name := "scalafx.http"
 organization := "objektwerks"
 version := "0.3-SNAPSHOT"
-scalaVersion := "3.7.3-RC3"
+scalaVersion := "3.7.3"
 libraryDependencies ++= {
   Seq(
     "org.scalafx" %% "scalafx" % "24.0.2-R36",
